@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { getStockInfo } from "./client_action"; // Make sure this exports your getStockInfo function
+import { Chart } from "./Chart";
 
 export function StockForm() {
-    const [result, setResult] = useState<string | null>(null);
+    const [result, setResult] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     async function handleSubmit(formData: FormData) {
@@ -33,7 +34,11 @@ export function StockForm() {
                 </h1>
             </div>
             <form
-                action={handleSubmit}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    handleSubmit(formData);
+                }}
                 className="bg-white border border-orange-200 rounded-2xl shadow-md p-6 w-full max-w-md space-y-4"
             >
                 <h2 className="text-2xl font-semibold text-orange-600 text-center">
@@ -64,7 +69,7 @@ export function StockForm() {
                     disabled={loading}
                     className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
                 >
-                    {loading ? <p className="animate-spin">💸</p> : "Compare Stocks"}
+                    {loading ? <span className="animate-spin w-4 h-4">💸</span> : "Compare Stocks"}
                 </button>
             </form>
 
