@@ -11,8 +11,8 @@ export function StockForm() {
     async function handleSubmit(formData: FormData) {
         setLoading(true)
         const res = await getStockInfo(formData);
-        setResult(res.response);
-        console.log(res.response)
+        setResult(res);
+        console.log(res)
         setLoading(false)
     }
 
@@ -73,14 +73,17 @@ export function StockForm() {
                 </button>
             </form>
 
-            {/*  {result && (
-                <div
-                    className="mt-8 max-w-3xl w-full bg-white border border-orange-100 rounded-xl p-6 shadow-inner"
-                    dangerouslySetInnerHTML={{ __html: result }}
-                />
-            )*/}
+            {result && result.metrics && (
+                <div className="mt-8 w-full flex justify-center">
+                    <Chart metrics={result.metrics} />
+                </div>
+            )}
 
-            {result && JSON.stringify(result)}
+            {result && !result.metrics && (
+                <div className="mt-8 max-w-3xl w-full bg-white border border-orange-100 rounded-xl p-6 shadow-inner">
+                    {JSON.stringify(result)}
+                </div>
+            )}
         </div>
     );
 }

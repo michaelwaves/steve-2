@@ -19,7 +19,7 @@ export async function getStockInfo(formData: FormData) {
 
     const result = await agent.generate({
         messages:
-            [{ role: "user", content: prompt2 }],
+            [{ role: "user", content: prompt }],
     });
 
     const response = result.response.body.choices[0].message.content
