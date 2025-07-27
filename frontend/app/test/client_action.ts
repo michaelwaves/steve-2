@@ -13,7 +13,7 @@ export async function getStockInfo(formData: FormData) {
     const email = formData.get("email")?.toString();
     const agent = client.getAgent("stockAgent");
 
-    const prompt = `Which stock should I buy? ${ticker1} or ${ticker2}? Send a side by side report and analysis in beautifully formatted html with a modern, minimalist orange color theme to ${email}. Make sure to cite sources`
+    const prompt = `Which stock should I buy? ${ticker1} or ${ticker2}? Send a side by side report and analysis in beautifully formatted html with a modern, minimalist orange color theme to ${email}. Make sure to cite sources. Also add a recommendation and rationale.`
 
     const prompt2 = "just respond with hello and nothing else"
 
