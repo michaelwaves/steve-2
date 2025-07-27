@@ -17,9 +17,22 @@ import {
 } from 'recharts';
 
 interface MetricData {
-    completeness: { score: number };
-    answerRelevancy: { score: number };
-    bias: { score: number };
+    completeness: { 
+        score: number;
+        info?: any;
+    };
+    answerRelevancy: { 
+        score: number;
+        info?: {
+            reason?: string;
+        };
+    };
+    bias: { 
+        score: number;
+        info?: {
+            reason?: string;
+        };
+    };
 }
 
 interface ChartProps {
@@ -186,6 +199,78 @@ export function Chart({ metrics }: ChartProps) {
                     <div className="text-sm text-orange-600 mt-1">
                         Unbiased response
                     </div>
+                </div>
+            </div>
+
+            {/* Detailed Analysis Section */}
+            <div className="mt-8 space-y-4">
+                <h3 className="text-xl font-semibold text-orange-700 text-center mb-6">
+                    📋 Detailed Analysis & Rationale
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                    {/* Completeness Analysis */}
+                    {metrics.completeness.info && (
+                        <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-5">
+                            <div className="flex items-start space-x-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-sm">C</span>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="font-semibold text-orange-800 mb-2">
+                                        Completeness Analysis
+                                    </h4>
+                                    <div className="text-sm text-orange-700 bg-white bg-opacity-60 rounded-lg p-3">
+                                        <pre className="whitespace-pre-wrap font-mono text-xs">
+                                            {JSON.stringify(metrics.completeness.info, null, 2)}
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Answer Relevancy Analysis */}
+                    {metrics.answerRelevancy.info?.reason && (
+                        <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-5">
+                            <div className="flex items-start space-x-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-sm">R</span>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="font-semibold text-orange-800 mb-2">
+                                        Answer Relevancy Analysis
+                                    </h4>
+                                    <div className="text-sm text-orange-700 bg-white bg-opacity-60 rounded-lg p-3">
+                                        <p className="leading-relaxed">
+                                            {metrics.answerRelevancy.info.reason}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Bias Analysis */}
+                    {metrics.bias.info?.reason && (
+                        <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-5">
+                            <div className="flex items-start space-x-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-sm">B</span>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="font-semibold text-orange-800 mb-2">
+                                        Bias Analysis
+                                    </h4>
+                                    <div className="text-sm text-orange-700 bg-white bg-opacity-60 rounded-lg p-3">
+                                        <p className="leading-relaxed">
+                                            {metrics.bias.info.reason}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

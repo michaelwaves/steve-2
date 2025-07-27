@@ -45,7 +45,9 @@ export function StockForm() {
                     How good is AI at picking stocks?
                 </h2>
                 <p>Whenever we deploy an AI, we need to make sure the expected value is greater than the risk. We use a monitor AI to evaluate the performance of a realistic multi tool agentic mcp system that searches the web for stock data, drafts a analyst report, and mails it to you. We evaluate three metrics: Bias, Completeness, and Relevancy to the prompt. Built with Mastra (and Mastra evals), Brightdata, and Google AI</p>
-
+                <h2 className="text-2xl font-semibold text-orange-600 text-center">
+                    The Task: Compare two stocks and send a comparison report to an email address
+                </h2>
                 <input
                     name="ticker1"
                     placeholder="Ticker Symbol 1 (e.g. AAPL)"
@@ -102,14 +104,13 @@ export function StockForm() {
 
             {result && result.metrics && (
                 <div className="mt-8 w-full flex flex-col items-center space-y-6">
-                    <Chart metrics={result.metrics} />
 
                     {/* Clean LLM Response Display */}
                     <div className="w-full max-w-4xl bg-white border border-orange-200 rounded-2xl shadow-md overflow-hidden">
                         <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4">
                             <h3 className="text-xl font-semibold text-white flex items-center">
                                 <span className="mr-2">🤖</span>
-                                AI Analysis Response
+                                Stock Agent Response
                             </h3>
                         </div>
                         <div className="p-6">
@@ -119,6 +120,8 @@ export function StockForm() {
                             />
                         </div>
                     </div>
+                    <Chart metrics={result.metrics} />
+
                 </div>
             )}
 
